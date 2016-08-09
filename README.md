@@ -2,6 +2,8 @@
 
 Esta biblioteca permite ao Arduino trabalhar com módulos LCD (mais de 1) usando a biblioteca IToOutputModule595 baseados no 74HC595 usando apenas 1 porta de saída.
 
+Para usar esta biblioteca, é necessário ter instalado a biblioteca IToOutputModule595 que pode ser encontrado no [Biblioteca IToOutputModule595](http://github.com/eijuito/IToOutputModule595 "Github").
+
 Para mais informações, exemplos e circuitos desta biblioteca, por favor, nos visite no
 [Project ITo Output Module 74HC595 @ labirito.com](http://www.labirito.com/projetos/itooutputmodule74595 "Labirito projects")
 
@@ -34,6 +36,8 @@ O circuito abaixo deve ser
 
 
 [![Veja o LCD contando tempo](https://lh5.googleusercontent.com/-GjHtiAUi2Gk/V6Os9YWtp-I/AAAAAAAACNg/TYu0XMB35ZMz4DZKOL9ZbFZzre4Z7S2lwCL0B/w796-h597-no/2016-08-04.jpg)]
+
+[![Veja os modulos do protótipos](https://lh5.googleusercontent.com/-WAr0X85SnGA/V6OrpjilmHI/AAAAAAAACNU/EiV6RsEYL5Qnvp0wCP6EU4NPF8FjJ8JVACL0B/w796-h597-no/2016-08-04.jpg)]
 
 [![2 LCDs rodando ao mesmo tempo](https://lh5.googleusercontent.com/-0-acNRu_C_M/V6FPS8eIZTI/AAAAAAAACMY/llGJefWlrekSO_atE9_Mh0SbuI9LTIkwACL0B/w796-h597-no/2016-08-02.jpg)]
 
