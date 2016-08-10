@@ -1,12 +1,12 @@
 #######################################
-# Syntax Coloring Map For IToOutputModule595
+# Syntax Coloring Map For IToIurLcdModule595
 #######################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-IToOutputModule595	KEYWORD1	IToOutputModule595
+IToIurLcdModule595	KEYWORD1	IToIurLcdModule595
 
 #######################################
 # Methods and Functions (KEYWORD2)
