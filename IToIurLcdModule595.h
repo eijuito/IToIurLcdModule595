@@ -49,13 +49,13 @@
 #define LCD_5x10DOTS 0x04
 #define LCD_5x8DOTS 0x00
 
-#define LCD_PIN_DB4 1 // Pino 1 do 74HC595 ligado no DB4 do modulo LCD
-#define LCD_PIN_DB5 2 // Pino 2 do 74HC595 ligado no DB4 do modulo LCD
-#define LCD_PIN_DB6 3 // Pino 3 do 74HC595 ligado no DB4 do modulo LCD
-#define LCD_PIN_DB7 4 // Pino 4 do 74HC595 ligado no DB4 do modulo LCD
-#define LCD_PIN_READWRITE 5 // Pino 5 do 74HC595 ligado no RW do modulo - LCD LOW: write to LCD.  HIGH: read from LCD.
+#define LCD_PIN_DB4 15 // Pino 15 do 74HC595 ligado no DB4 do modulo LCD
+#define LCD_PIN_DB5 1 // Pino 1 do 74HC595 ligado no DB5 do modulo LCD
+#define LCD_PIN_DB6 2 // Pino 2 do 74HC595 ligado no DB6 do modulo LCD
+#define LCD_PIN_DB7 3 // Pino 3 do 74HC595 ligado no DB7 do modulo LCD
+#define LCD_PIN_READWRITE 5 // Pino 5 do 74HC595 ligado no RW do modulo - LCD LOW:write HIGH:read
 #define LCD_PIN_ENABLE 6 // Pino 6 do 74HC595 ligado no ENA do modulo LCD
-#define LCD_PIN_RS 7 // Pino 7 do 74HC595 ligado no RS do modulo LCD - LOW: command.  HIGH: character.
+#define LCD_PIN_RS 4 // Pino 4 do 74HC595 ligado no RS do modulo LCD - LOW:command  HIGH:data
 
 class IToIurLcdModule595 : public Print {
 public:
