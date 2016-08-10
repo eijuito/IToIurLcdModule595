@@ -1,12 +1,12 @@
 #######################################
-# Syntax Coloring Map For LiquidCrystal
+# Syntax Coloring Map For IToOutputModule595
 #######################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-LiquidCrystal	KEYWORD1	LiquidCrystal
+IToOutputModule595	KEYWORD1	IToOutputModule595
 
 #######################################
 # Methods and Functions (KEYWORD2)
@@ -36,3 +36,7 @@ setRowOffsets	KEYWORD2
 # Constants (LITERAL1)
 #######################################
 
+LCD_5x8DOTS	LITERAL1
+LCD_5x10DOTS	LITERAL1
+LCD_1LINE	LITERAL1
+LCD_2LINE	LITERAL1

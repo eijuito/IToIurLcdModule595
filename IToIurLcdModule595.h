@@ -7,9 +7,9 @@
 
 #ifndef ITOIURLCDMODULE595_H_
 #define ITOIURLCDMODULE595_H_
+#define ITOIURLCDMODULE595_VERSION "IToOutputModule595 v0.1.0"
 
-#include <inttypes.h>
-#include "Arduino.h"
+#include "Print.h"
 #include "IToOutputModule595.h"
 
 #define LCD_CLEARDISPLAY 0x01
@@ -49,13 +49,22 @@
 #define LCD_5x10DOTS 0x04
 #define LCD_5x8DOTS 0x00
 
-class IToIurLcdModule595 {
+#define LCD_PIN_DB4 1 // Pino 1 do 74HC595 ligado no DB4 do modulo LCD
+#define LCD_PIN_DB5 2 // Pino 2 do 74HC595 ligado no DB4 do modulo LCD
+#define LCD_PIN_DB6 3 // Pino 3 do 74HC595 ligado no DB4 do modulo LCD
+#define LCD_PIN_DB7 4 // Pino 4 do 74HC595 ligado no DB4 do modulo LCD
+#define LCD_PIN_READWRITE 5 // Pino 5 do 74HC595 ligado no RW do modulo - LCD LOW: write to LCD.  HIGH: read from LCD.
+#define LCD_PIN_ENABLE 6 // Pino 6 do 74HC595 ligado no ENA do modulo LCD
+#define LCD_PIN_RS 7 // Pino 7 do 74HC595 ligado no RS do modulo LCD - LOW: command.  HIGH: character.
+
+class IToIurLcdModule595 : public Print {
 public:
-	IToIurLcdModule595(IToOutputModule595 &outs, uint8_t module = 0);
+	IToIurLcdModule595(IToOutputModule595* outs, uint8_t module = 0);
 	virtual ~IToIurLcdModule595();
-	void begin(uint8_t cols, uint8_t rows, uint8_t charsize = LCD_5x8DOTS);
+	bool begin(uint8_t cols, uint8_t rows, uint8_t charsize = LCD_5x8DOTS);
 	void clear();
 	void home();
+	void setCursor(uint8_t, uint8_t);
 
 	void noDisplay();
 	void display();
@@ -70,19 +79,19 @@ public:
 	void autoscroll();
 	void noAutoscroll();
 
-	void setRowOffsets(int row1, int row2, int row3, int row4);
 	void createChar(uint8_t, uint8_t[]);
-	void setCursor(uint8_t, uint8_t);
-	virtual size_t write(uint8_t);
 	void command(uint8_t);
+	size_t write(uint8_t);
+	using Print::write;
 
 private:
-	uint8_t _module;
-	IToOutputModule595 _outs;
-	void send(uint8_t, uint8_t);
-	void write4bits(uint8_t);
-	void write8bits(uint8_t);
+	void send(uint8_t value, uint8_t mode);
 	void pulseEnable();
+	void setRowOffsets(int row1, int row2, int row3, int row4);
+	void write4bits(uint8_t value);
+
+	uint8_t _module = -1;
+	IToOutputModule595* _outs;
 
 	//	  uint8_t _rs_pin; // LOW: command.  HIGH: character.
 	//	  uint8_t _rw_pin; // LOW: write to LCD.  HIGH: read from LCD.
@@ -93,9 +102,8 @@ private:
 	uint8_t _displaycontrol;
 	uint8_t _displaymode;
 
-	uint8_t _initialized;
-
 	uint8_t _numlines;
 	uint8_t _row_offsets[4];
 };
+
 #endif /* ITOIURLCDMODULE595_H_ */
