@@ -1,9 +1,50 @@
 /*
- * IToIurLcdModule595.h
- *
- *  Created on: Aug 8, 2016
- *      Author: Administrator
- */
+   Nome do Aquivo:   IToIurLcdModule595.h
+   Descrição:        Library to enable LCD using IToOutputModule595
+   Data criada:      2016-08-06
+   Versao do Aquivo: 2016-08-10
+   Dependências:     IToOutputModule595
+   Escrito por:      Celso Eiju Ito - eijuito@gmail.com
+   	   	   	   	   	 Rui Lopes Viana - ruianaiv@gmail.com
+   MCU:              ATMEGA 328P 16 MHz
+   Board:            Arduino Uno/Mega/Mini
+   Compilador        GCC para Arduino
+   IDE:              Eclipse Mars CDT 8.8.1 com plugin Arduino C++ Jantje Baeyens 3.0.0
+   Hardware:         Arduino UNO
+   Colaboradores:    Rui Viana - ruianaiv@gmail.com
+                     Natalia Ayako Takano - natalia.takano@gmail.com
+   Uso:              Generico
+   Diagrams:         http://github.com/eijuito/IToOutputModule595
+                     http://www.labirito.com/projetos/itooutputmodule74595
+                          +--\__/--+
+                     DB5[ ]1 |	  | 16[ ]+V
+                     DB6[ ]2 |	  | 15[ ]DB5
+                     DB7[ ]3 |	  | 14[ ]DAT
+                     ENA[ ]4 |	  | 13[ ]GND
+                     RW [ ]5 |	  | 12[ ]LTC
+                     RS [ ]6 |	  | 11[ ]CLK
+                     ---[ ]7 |	  | 10[ ]+V
+                     GND[ ]1 |	  | 9 [ ]OUT
+                        +--------+
+   Copyright ®       2016 Celso Eiju Ito eijuito@gmail.com (www.itosa.com.br)
+                     Este programa e de propriedade do Celso Eiju Ito eijuito@gmail.com
+                     E vedada a copia total ou parcial por pessoas nao autorizadas
+                     Nao e permitida a comercializacao ou locacao
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   REVISIONS: (latest entry first)
+   2016-07-23 Implemented 3 ports mode
+   2016-07-13 Implemented 1 port mode but not working correct
+   2016-06-23 Optimized to save memory
+   2016-06-18 Second version eliminating Robocore dependency
+   2016-06-02 Primeira versao
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   NEXT STEPS: (priority first)
+   Implement 1 output por required, already in development by Rui Viana
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
+/*
+Rui Lopes Viana (ruianaiv@gmail.com)
+    */
 
 #ifndef ITOIURLCDMODULE595_H_
 #define ITOIURLCDMODULE595_H_
@@ -49,13 +90,13 @@
 #define LCD_5x10DOTS 0x04
 #define LCD_5x8DOTS 0x00
 
-#define LCD_PIN_DB4 15 // Pino 15 do 74HC595 ligado no DB4 do modulo LCD
-#define LCD_PIN_DB5 1 // Pino 1 do 74HC595 ligado no DB5 do modulo LCD
-#define LCD_PIN_DB6 2 // Pino 2 do 74HC595 ligado no DB6 do modulo LCD
-#define LCD_PIN_DB7 3 // Pino 3 do 74HC595 ligado no DB7 do modulo LCD
-#define LCD_PIN_READWRITE 5 // Pino 5 do 74HC595 ligado no RW do modulo - LCD LOW:write HIGH:read
-#define LCD_PIN_ENABLE 6 // Pino 6 do 74HC595 ligado no ENA do modulo LCD
-#define LCD_PIN_RS 4 // Pino 4 do 74HC595 ligado no RS do modulo LCD - LOW:command  HIGH:data
+#define LCD_PIN_DB4       0x01 // Pino 15 do 74HC595 ligado no DB4 do modulo LCD
+#define LCD_PIN_DB5       0x02 // Pino 1 do 74HC595 ligado no DB5 do modulo LCD
+#define LCD_PIN_DB6       0x04 // Pino 2 do 74HC595 ligado no DB6 do modulo LCD
+#define LCD_PIN_DB7       0x08 // Pino 3 do 74HC595 ligado no DB7 do modulo LCD
+#define LCD_PIN_RS        0x10 // Pino 6 do 74HC595 ligado no RS(4) do modulo LCD - LOW:command  HIGH:data
+#define LCD_PIN_READWRITE 0x20 // Pino 5 do 74HC595 ligado no RW(5) do modulo - LCD LOW:write HIGH:read
+#define LCD_PIN_ENABLE    0x40 // Pino 4 do 74HC595 ligado no ENA(6) do modulo LCD - LOW:Desabilitado HIGH:habilitado
 
 class IToIurLcdModule595 : public Print {
 public:
@@ -64,7 +105,7 @@ public:
 	bool begin(uint8_t cols, uint8_t rows, uint8_t charsize = LCD_5x8DOTS);
 	void clear();
 	void home();
-	void setCursor(uint8_t, uint8_t);
+	void setCursor(uint8_t cols, uint8_t rows);
 
 	void noDisplay();
 	void display();
@@ -79,9 +120,9 @@ public:
 	void autoscroll();
 	void noAutoscroll();
 
-	void createChar(uint8_t, uint8_t[]);
-	void command(uint8_t);
-	size_t write(uint8_t);
+	void createChar(uint8_t location, uint8_t charmap[]);
+	void command(uint8_t value);
+	size_t write(uint8_t value);
 	using Print::write;
 
 private:
@@ -92,11 +133,6 @@ private:
 
 	uint8_t _module = -1;
 	IToOutputModule595* _outs;
-
-	//	  uint8_t _rs_pin; // LOW: command.  HIGH: character.
-	//	  uint8_t _rw_pin; // LOW: write to LCD.  HIGH: read from LCD.
-	//	  uint8_t _enable_pin; // activated by a HIGH pulse.
-	//	  uint8_t _data_pins[8];
 
 	uint8_t _displayfunction;
 	uint8_t _displaycontrol;

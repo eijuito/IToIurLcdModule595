@@ -1,9 +1,24 @@
 /*
- * IToIurLcdModule595.cpp
- *
- *  Created on: Aug 8, 2016
- *      Author: Administrator
- */
+   Nome do Aquivo:   IToIurLcdModule595.cpp
+   Descrição:        Library to enable LCD using IToOutputModule595
+   Data criada:      2016-08-06
+   Versao do Aquivo: 2016-08-10
+   Dependências:     IToOutputModule595.h
+   Escrito por:      Celso Eiju Ito - eijuito@gmail.com
+   	   	   	   	   	 Rui Lopes Viana - ruianaiv@gmail.com
+   MCU:              See IToIurLcdModule595.h
+   Board:            See IToIurLcdModule595.h
+   Compilador        See IToIurLcdModule595.h
+   IDE:              See IToIurLcdModule595.h
+   Hardware:         See IToIurLcdModule595.h
+   Colaboradores:    See IToIurLcdModule595.h
+   Uso:              See IToIurLcdModule595.h
+   Diagrams:         See IToIurLcdModule595.h
+   Copyright ®       See IToIurLcdModule595.h
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   REVISIONS: (latest entry first) See IToIurLcdModule595.h
+   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
 
 #include "IToIurLcdModule595.h"
 
@@ -73,9 +88,7 @@ void IToIurLcdModule595::home() {
   delayMicroseconds(2000);  // this command takes a long time!
 }
 
-// **** private: ****
-
-
+/*********** private: */
 
 void IToIurLcdModule595::setCursor(uint8_t col, uint8_t row) {
   const size_t max_lines = sizeof(_row_offsets) / sizeof(*_row_offsets);
@@ -177,17 +190,9 @@ inline size_t IToIurLcdModule595::write(uint8_t value) {
  * mode command ou character LOW: command.  HIGH: character.
  */
 void IToIurLcdModule595::send(uint8_t value, uint8_t mode) {
-	_outs->SetOutput(LCD_PIN_RS, mode, _module);
-	_outs->SetOutput(LCD_PIN_READWRITE, LOW, _module);
-	write4bits(value >> 4);
-	write4bits(value);
-}
-
-void IToIurLcdModule595::pulseEnable() {
-	_outs->SetOutput(LCD_PIN_ENABLE, LOW, _module);
-	_outs->SetOutput(LCD_PIN_ENABLE, HIGH, _module); // enable pulse must be >450ns
-	_outs->SetOutput(LCD_PIN_ENABLE, LOW, _module);
-	delayMicroseconds(37);   // commands need > 37us to settle
+	uint8_t ena = mode ? LCD_PIN_ENABLE : 0x00;
+	write4bits((value >> 4 & 0x0F) | ena);
+	write4bits((value & 0x0F) | ena);
 }
 
 void IToIurLcdModule595::setRowOffsets(int row0, int row1, int row2, int row3) {
@@ -199,10 +204,7 @@ void IToIurLcdModule595::setRowOffsets(int row0, int row1, int row2, int row3) {
 
 void IToIurLcdModule595::write4bits(uint8_t value) {
 	cli();
-	_outs->SetOutput(LCD_PIN_DB4, (value) & 0x01);
-	_outs->SetOutput(LCD_PIN_DB5, (value >> 1) & 0x01);
-	_outs->SetOutput(LCD_PIN_DB6, (value >> 2) & 0x01);
-	_outs->SetOutput(LCD_PIN_DB7, (value >> 3) & 0x01);
-	pulseEnable();                      // Pulsa ENABLE
+	_outs->SetModule((value | 0x10), _module);
+	_outs->SetModule(value, _module);
 	sei();
 }
