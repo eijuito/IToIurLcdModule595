@@ -16,35 +16,29 @@
    Uso:              Generico
    Diagrams:         http://github.com/eijuito/IToOutputModule595
                      http://www.labirito.com/projetos/itooutputmodule74595
-                          +--\__/--+
-                     DB5[ ]1 |	  | 16[ ]+V
-                     DB6[ ]2 |	  | 15[ ]DB5
-                     DB7[ ]3 |	  | 14[ ]DAT
-                     ENA[ ]4 |	  | 13[ ]GND
-                     RW [ ]5 |	  | 12[ ]LTC
-                     RS [ ]6 |	  | 11[ ]CLK
-                     ---[ ]7 |	  | 10[ ]+V
-                     GND[ ]1 |	  | 9 [ ]OUT
-                        +--------+
+                             +--\__/--+
+                     DB5[ ]1 |        | 16[ ]+V
+                     DB6[ ]2 |        | 15[ ]DB5
+                     DB7[ ]3 |        | 14[ ]DAT
+                     ENA[ ]4 |        | 13[ ]GND
+                     RW [ ]5 |        | 12[ ]LTC
+                     RS [ ]6 |        | 11[ ]CLK
+                     ---[ ]7 |        | 10[ ]+V
+                     GND[ ]1 |        | 9 [ ]OUT
+                             +--------+
    Copyright ®       2016 Celso Eiju Ito eijuito@gmail.com (www.itosa.com.br)
                      Este programa e de propriedade do Celso Eiju Ito eijuito@gmail.com
                      E vedada a copia total ou parcial por pessoas nao autorizadas
                      Nao e permitida a comercializacao ou locacao
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    REVISIONS: (latest entry first)
-   2016-07-23 Implemented 3 ports mode
-   2016-07-13 Implemented 1 port mode but not working correct
-   2016-06-23 Optimized to save memory
-   2016-06-18 Second version eliminating Robocore dependency
-   2016-06-02 Primeira versao
+   2016-08-10 Tests with 1 and 2 LCDs and updated code
+   2016-08-06 Primeira versao
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    NEXT STEPS: (priority first)
-   Implement 1 output por required, already in development by Rui Viana
+   Review
    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-/*
-Rui Lopes Viana (ruianaiv@gmail.com)
-    */
 
 #ifndef ITOIURLCDMODULE595_H_
 #define ITOIURLCDMODULE595_H_
